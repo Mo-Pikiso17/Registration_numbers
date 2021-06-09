@@ -1,0 +1,136 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+body{
+    height: 100vh;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    background: rgb(247, 244, 244);
+    padding: 50px;
+}
+
+#container{
+    height: 560px;
+    max-width: 850px;
+    width: 100%;
+    margin: auto;
+    background: whitesmoke;
+    padding: 20px 25px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: -10px;
+}
+
+/* 3D effect */
+#container{
+    filter: blur(0.4px);
+    box-shadow:
+
+    /* bottom */
+    0px 20px 20px rgba(0,0,0,0.2),
+    0px 5px 10px rgba(0,0,0,0.2),
+
+    /* long bottom */
+    0px 70px 50px rgba(0,0,0,0.4),
+    
+
+    /* right */
+    30px 50px 50px rgba(0,0,0,0.2),
+   
+
+    /* left  */
+    -30px 50px 50px rgba(0,0,0,0.2);
+}
+
+button {
+    font-size: 10px;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+}
+
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.heading{
+    margin-bottom: 30px;
+    border: rgb(117, 13, 10) solid;
+    border-top-width: 1px;
+    border-right-width: 3px;
+    border-bottom-width: 1px;
+    border-left-width: 3px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 5px;
+}
+
+input{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+    width: 500px;
+}
+
+
+ul li{
+    width: 50%;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+    position: relative;
+    padding: 0px 5px;
+    margin: 5px 0;
+    background-color: rgb(209, 171, 209);
+    box-shadow: -3px 6px 4px black;
+}
+
+
+
+.regs{
+    display: inline-block;
+    flex-direction: row;
+    /* margin: 100px; */
+    justify-content:center;
+    align-items: center;
+    /* margin-bottom: 20px; */
+}
+/* Radio buttons */
+
+.towns{
+    display: block;
+}
+
+.towns {
+    display: inline-block;
+    text-align: center;
+}
+
+.towns label {
+    display: block;
+    margin: 18px;
+    font-size: 15px;
+    padding-bottom: 20px;
+}
+
+.radioButton{
+    padding-top:10px;
+    justify-content: space-around;
+    align-items: stretch; 
+}
+
+.townBtn{
+    transform: scale(1.3);     
+} 
