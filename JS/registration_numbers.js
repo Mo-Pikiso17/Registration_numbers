@@ -55,6 +55,8 @@ function append(plateIn) {
     carry.appendChild(plus);
     document.getElementById("regList").appendChild(carry);
 }
+addBtnElem.addEventListener('click', append)
+
 
 function addFun() {
 
@@ -114,6 +116,8 @@ function addFun() {
 
 
 }
+addBtnElem.addEventListener('click', addFun)
+
 
 function showFun() {
 
@@ -180,6 +184,8 @@ function showFun() {
     document.querySelector('#regList').innerHTML = html;
  
 }
+showBtnElem.addEventListener('click', showFun)
+
 
 function conditions() {
 
@@ -239,3 +245,6 @@ function clears() {
     }, 1000);
 
 }
+
+clearBtnElem.addEventListener('click', clears)
+
