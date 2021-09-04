@@ -1,23 +1,67 @@
 function registration(existing) {
 
-    var pattern = /^[A-Z]{2}\s[0-9]{3}-[0-9]{3}$/
+    // var pattern = /^[A-Z]{2} \s[0-9]{3}-[0-9]{3}$/
+    var pattern = /^[CA-ca]{2}\s[0-9]{3}-[0-9]{3}$/ //|| /^[CL]{2}\s[0-9]{3}-[0-9]{3}$/ || /^[CJ]{2}\s[0-9]{3}-[0-9]{3}$/
+    var pattern1 = /^[CL-cl]{2}\s[0-9]{3}-[0-9]{3}$/
+    var pattern2 = /^[CJ-cj]{2}\s[0-9]{3}-[0-9]{3}$/
+
 
     var list = [] || existing;
     regList1 = [];
     regList2 = [];
     regList3 = [];
 
-    function pushRegister(input) {
-        var validate = pattern.test(input)
+    function pushRegister(names) {
+        // var str = names.toLowerCase();                        
+        var name = names.toUpperCase();
+
+        var validate = pattern.test(name)
+        var validate1 = pattern1.test(name)
+        var validate1 = pattern2.test(name)
 
 
         if (validate) {
 
-            if (!list.includes(input)) {
+            if (!list.includes(name)) {
 
-                list.push(input)
+                list.push(name)
 
                 return list;
+            }
+
+            else if (list.includes(name)) {
+
+                return "Registration number already entered!"
+            }
+        }
+
+        if (validate1) {
+
+            if (!list.includes(name)) {
+
+                list.push(name)
+
+                return list;
+            }
+
+            else if (list.includes(name)) {
+                
+                return "Registration number already entered!"
+            }
+        }
+
+         if (validate2) {
+
+            if (!list.includes(name)) {
+
+                list.push(name)
+
+                return list;
+            }
+
+            else if (list.includes(name)) {
+
+                return "Registration number already entered!"
             }
         }
 

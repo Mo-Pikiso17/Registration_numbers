@@ -22,7 +22,10 @@ var showElem = document.querySelector('.regOutput');
 var clearBtnElem = document.querySelector('.clearBtn')
 
 
-var pattern = /^[A-Z]{2}\s[0-9]{3}-[0-9]{3}$/
+var pattern = /^[CcAa]{2}\s[0-9]{3}-[0-9]{3}$/
+var patternO = /^[CcLl]{2}\s[0-9]{3}-[0-9]{3}$/
+var patternT = /^[CcJj]{2}\s[0-9]{3}-[0-9]{3}$/
+
 
 var regs = [];
 
@@ -39,7 +42,7 @@ if (localData) {
     html = ''
 
     localData.forEach(function (localData) {
-                
+
         html += '<li>' + localData + '</li>';
     });
 
@@ -58,65 +61,101 @@ function append(plateIn) {
 addBtnElem.addEventListener('click', append)
 
 
-function addFun() {
+function addFun(e) {
 
-    var input = document.getElementById("reg").value
-    //var addBtn = document.getElementById("btn").value
-    var validate = pattern.test(input);
+    var input = document.getElementById("reg").value.toUpperCase();
+    var localData = JSON.parse(localStorage.getItem('registration'))
+
+    var validate = input.match(pattern);
+    var validateO = input.match(patternO);
+    var validateT = input.match(patternT);
+
     var key = registerInsta.getReg();
+
     var html = '';
 
-    if (validate) {
+    // Push errors into array
+    let message = [];
 
-        if (!regs.includes(input)) {
+    if (!regs.includes(input)) {
+
+        if (validate) {
 
             registerInsta.pushRegister(input)
+
+            key.forEach(function (key) {
+
+                html += '<li>' + key + '</li>';
+
+            });
+
+
+            localStorage.setItem('registration', JSON.stringify(registerInsta.getReg()));
         }
 
-        // if (regs !== "") {
+        else if (validateO) {
 
-        //     clearMsg.innerHTML = "Registration number entered";
-        //     append(key)
-        //     setTimeout(function () {
-        //         errorMsg.innerHTML = ""
-        //     }, 3000);
-
-        // }
-
-
-        if (regs !== ""){
-
-            clearMsg.innerHTML = "Registration number entered!";
-            setTimeout(function () {
-                clearMsg.innerHTML = ""
-            }, 3000);
+            registerInsta.pushRegister(input)
 
 
             key.forEach(function (key) {
-                
+
                 html += '<li>' + key + '</li>';
             });
 
+            localStorage.setItem('registration', JSON.stringify(registerInsta.getReg()));
+
         }
 
-        localStorage.setItem('registration', JSON.stringify(registerInsta.getReg()));
+        else if (validateT) {
+
+            registerInsta.pushRegister(input)
+
+
+            key.forEach(function (key) {
+
+                html += '<li>' + key + '</li>';
+            });
+
+            localStorage.setItem('registration', JSON.stringify(registerInsta.getReg()));
+
+
+        }else {
+
+            message.push("Please enter a valid registration number i.e. CA 123-123")
+    
+        }
+
+    } if(localData == input || localData == input || localData == input){
+
+        !registerInsta.pushRegister(input)
+
+        message.push("Registration number already entered!")
 
     }
-
-    else {
-
-        errorMsg.innerHTML = "Please enter a valid registration number i.e. CA 123-123";
+    
+// Display errors array
+    if (message.length > 0) {
+        e.preventDefault()
+        errorMsg.innerHTML = message.join(", ")
 
         setTimeout(function () {
             errorMsg.innerHTML = ""
+
         }, 3000);
+
     }
 
+    
     document.querySelector('#regList').innerHTML = html;
 
+    // clear textbox
+    document.getElementById("reg").value = "";
 
 }
 addBtnElem.addEventListener('click', addFun)
+
+
 
 
 function showFun() {
@@ -137,9 +176,7 @@ function showFun() {
         // append(tOne)
 
         tOne.forEach(function (tOne) {
-            // += adds an item to the existing value
-            // It's the same as writing this:
-            // html = html + '<li>' + wizard + '</li>';
+           
             html += '<li>' + tOne + '</li>';
         });
     }
@@ -147,7 +184,7 @@ function showFun() {
     else if (radio.value === "CL") {
 
         tTwo.forEach(function (tTwo) {
-            
+
             html += '<li>' + tTwo + '</li>';
         });
 
@@ -155,19 +192,21 @@ function showFun() {
 
     else if (radio.value === "CJ") {
 
+
         tThree.forEach(function (tThree) {
             html += '<li>' + tThree + '</li>';
         });
 
 
     }
-    
-    else if (radio.value = "All"){
 
-        if(localData === null) {
-    
+    else if (radio.value = "All") {
+
+
+        if (localData === null) {
+
             errorMsg.innerHTML = "No Registration Numbers entered";
-    
+
             setTimeout(function () {
                 errorMsg.innerHTML = ""
             }, 3000);
@@ -175,58 +214,63 @@ function showFun() {
 
         else {
             localData.forEach(function (localData) {
-            
+
                 html += '<li>' + localData + '</li>';
             });
         }
     }
 
+
     document.querySelector('#regList').innerHTML = html;
- 
+
+
+
 }
 showBtnElem.addEventListener('click', showFun)
 
 
-function conditions() {
+function conditions(e) {
 
+    // Push errors into array
+    let messages = [];
+
+
+    // var radio = document.querySelector("input[name='townBtn']:checked");
     var radio = document.querySelector("input[name='townBtn']:checked");
+
     var tOne = registerInsta.filterC(localData);
     var tTwo = registerInsta.filterP(localData);
     var tThree = registerInsta.filterS(localData);
     // var all = registerInsta.filterA(localData);
 
     if (tOne.length === 0 && radio.value === "CA") {
-        errorMsg.innerHTML = "No registration numbers entered for Cape Town";
-
-        setTimeout(function () {
-            errorMsg.innerHTML = ""
-        }, 3000);
+        messages.push("No registration numbers entered for Cape Town");
     }
 
+    if (tTwo.length === 0 && radio.value ==="CL") {
 
-    if (tTwo.length === 0 && radio.value === "CL") {
-        errorMsg.innerHTML = "No registration numbers entered for Paarl";
-
-        setTimeout(function () {
-            errorMsg.innerHTML = ""
-        }, 3000);
+        messages.push("No registration numbers entered for Paarl");
+        
     }
 
     if (tThree.length === 0 && radio.value === "CJ") {
-        errorMsg.innerHTML = "No registration numbers entered for Stellenbosch";
- 
-        setTimeout(function () {
-            errorMsg.innerHTML = ""
-        }, 3000);
+        messages.push("No registration numbers entered for Stellenbosch");
     }
 
-    // if(localData.length < 0 && radio.value === "All"){
-    //     errorMsg.innerHTML = "No registration numbers for all Towns";
+    // Display errors array
+    if (messages.length > 0) {
+        e.preventDefault()
+        errorMsg.innerHTML = messages.join(", ")
 
-    //     setTimeout(function () {
-    //         errorMsg.innerHTML = ""
-    //     }, 3000);
-    // }
+        setTimeout(function () {
+            errorMsg.innerHTML = ""
+
+        }, 3000);
+
+    }
+
+    // uncheck radio but
+    radio.checked = false;
 
 }
 
